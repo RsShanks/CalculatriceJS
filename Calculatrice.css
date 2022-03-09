@@ -1,0 +1,53 @@
+#place{
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 200px;
+}
+
+#bord1{
+    z-index: 4;
+    max-width: 50%;
+    min-width: 370px;
+    margin-left: 25%;
+    margin-right: 25%;
+    border-color: black;
+    background-color: rgb(218, 216, 216);
+    border-width: 3px;  
+    border-style: solid;
+}
+
+#cadreCal{
+    background-color: white;
+    margin-top: 1px;
+    text-align: center;
+    font-family:'Times New Roman', Times, serif;
+    z-index: 3;
+}
+
+#bord2{
+    z-index: 2;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+#resultat{
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    margin-left: 1px;
+    margin-right: 1px;
+    text-align: right;
+    font-family: math;
+}
+
+
+
+.bouton{
+    width: 19%;
+    height: 40px;
+}
+#bouton2{
+    margin-top: 0%;
+    width: 20%;
+    height: 20px;
+}
+

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>calculatrice</title>
+        <link href="Calculatrice.css" rel="stylesheet">
+    </head>
+    <body>
+        Calulez !!!<br>
+        
+        <div id="place">
+            <div id="bord1">
+                
+                <div id="cadreCal">
+                    Calculette
+                </div>
+                
+                <div id="bord2">
+                
+                </div>
+                
+                <div id="resultat">
+                    <div id="result"></div>
+                    <script>
+                        var OPERATORS = ['+', '-', '*', '/'];
+                        var tempText = '';
+                        var entities = [];
+
+                        function displayText() {
+                            var displayedText = entities.join(' ') + " " + tempText;
+                            document.getElementById('result').innerText = displayedText;
+                        }
+                        
+                        function pushEntity(text) { 
+                            if (OPERATORS.includes(text)) {
+                                if(OPERATORS.includes(entities[entities.length - 1])) {
+                                    // Our last entity is an operator so remplace it
+                                    entities.pop();
+                                }
+                                entities.push(text);
+                            } else if (text) {
+                                var entity = parseFloat(text);
+                                entities.push(entity);
+                            }
+                        }
+                        
+                        function concatText(arg1) {
+                            // Faire attention à la virgule
+                            if (arg1==='.') {
+                                if (!tempText.includes('.'))
+                                    {
+                                        tempText += '.';
+                                    }
+                            }
+                            else if (OPERATORS.includes(arg1)) {
+                                pushEntity(tempText);
+                                pushEntity(arg1);
+                                tempText = '';
+                            }
+                            else {
+                                tempText += arg1;
+                            }
+                            displayText();
+
+                        }
+
+                        function reset() {
+                            tempText = '';
+                            entities = [];
+                            displayText();
+                        }
+
+                        function launchCalc() {
+                            pushEntity(tempText);
+                            tempText = "";
+                            var result = getResult(entities);
+                            document.getElementById('result').innerText = result;
+                        }
+
+                        function getResult(entitiesTab) {
+                            if (entitiesTab.length < 3) {
+                                return entitiesTab[0] || 0;
+                            }
+                            var [n1, op, n2, ...rest] = entitiesTab;
+                            var newEntities = [
+                                calc(n1, op, n2),
+                                ...rest
+                            ];
+                            return getResult(newEntities);
+                        }
+                        
+                        function calc(n1,op,n2){
+                            switch(op){
+                                case '+' :  
+                                    return n1 + n2
+                                case '-' :
+                                    return n1 - n2
+                                case '*' :
+                                    return n1 * n2
+                                case '/' :
+                                    return n1 / n2
+                                default  :
+                                    throw new Error("oppérateur inconnu")
+                            }
+                        
+                        }
+                        
+                    </script><br>
+                </div>
+                
+                <div id="PlaceB">
+                    <button class="bouton" onclick="concatText('7');">7</button>
+                    <button class="bouton" onclick="concatText('8');">8</button>
+                    <button class="bouton" onclick="concatText('9');">9</button>
+                    <button class="bouton" onclick="concatText('+');">+</button>
+                    <br>
+                    <button class="bouton" onclick="concatText('4');">4</button>
+                    <button class="bouton" onclick="concatText('5');">5</button>
+                    <button class="bouton" onclick="concatText('6');">6</button>
+                    <button class="bouton" onclick="concatText('-');">-</button>
+                    <br>
+                    <button class="bouton" onclick="concatText('1');">1</button>
+                    <button class="bouton" onclick="concatText('2');">2</button>
+                    <button class="bouton" onclick="concatText('3');">3</button>
+                    <button class="bouton" onclick="concatText('/');">/</button>
+                    <button class="bouton" onclick="reset();">reset</button>
+                    <br>
+                    <button class="bouton" onclick="concatText('0');">0</button>
+                    <button class="bouton" onclick="concatText('.');">.</button>
+                    <button class="bouton" onclick="launchCalc();">=</button>
+                    <button class="bouton" onclick="concatText('*');">*</button>
+                </div>
+        
+        </div>
+    </body>
+        
+
+</html>
+    
